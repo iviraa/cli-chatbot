@@ -7,18 +7,28 @@
         <link rel="stylesheet" href="styles.css" />
     </head>
     <body>
-        <div class="container">
+        <div id="start-screen" class="screen">
             <h1>Welcome to Knead Chatbot</h1>
-
+            <button id="start-chat">Let's Chat</button>
+        </div>
+      
+        <div id="chat-screen" class="screen hidden">
+            <h1>Knead Chatbot</h1>
             <div class="chat-frame">
-            <div id="chat" class="chat-box"></div>
-            <form id="chat-form">
+                <div id="chat" class="chat-box"></div>
+                <form id="chat-form">
                 <input type="text" id="message" placeholder="Type a message..." autocomplete="off" required />
                 <button type="submit">Send</button>
-            </form>
+                </form>
             </div>
         </div>
-
+      
+        <div id="end-screen" class="screen hidden">
+            <h1>Thanks for using Knead Chatbot!</h1>
+            <p>See you again soon 👋</p>
+        </div>
+      
         <script src="script.js"></script>
     </body>
+      
 </html>

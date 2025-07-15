@@ -22,6 +22,10 @@ app.post("/chat", async (req, res) => {
     return res.json({ response: "Chat history cleared." });
   }
 
+  if (message.trim().toLowerCase() === "/end") {
+    return res.json({ response: "Thank you for chatting! See you again soon 👋" });
+  }
+
   try {
     const logs = getLogs();
 
