@@ -3,6 +3,8 @@ const axios = require("axios");
 const bodyParser = require("body-parser");
 require("dotenv").config();
 
+const { saveLogs, getLogs } = require("./messageLoader");
+
 const app = express();
 app.use(bodyParser.json());
 
@@ -14,11 +16,25 @@ app.post("/chat", async (req, res) => {
   }
 
   try {
+    const logs = getLogs();
+
+    const context = logs.flatMap((entry) => [
+      { role: "user", content: entry.user },
+      { role: "assistant", content: entry.bot },
+    ]);
+
+    console.log(context);
+
+    context.push({
+      role: "user",
+      content: message,
+    });
+
     const response = await axios.post(
       "https://api.openai.com/v1/chat/completions",
       {
         model: "gpt-3.5-turbo",
-        messages: [{ role: "user", content: message }],
+        messages: context,
       },
       {
         headers: {
@@ -27,7 +43,11 @@ app.post("/chat", async (req, res) => {
       }
     );
 
-    res.json({ response: response.data.choices[0].message.content });
+    const botMessage = response.data.choices[0].message.content;
+
+    saveLogs(message, botMessage);
+
+    res.json({ response: botMessage });
   } catch (error) {
     console.error("Error:", error);
     res.status(500).json({ error: "Failed to process request" });
