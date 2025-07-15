@@ -8,6 +8,7 @@ const { saveLogs, getLogs } = require("./messageLoader");
 const app = express();
 app.use(bodyParser.json());
 
+
 app.post("/chat", async (req, res) => {
   const message = req.body.message;
 
@@ -31,17 +32,19 @@ app.post("/chat", async (req, res) => {
     });
 
     const response = await axios.post(
-      "https://api.openai.com/v1/chat/completions",
+      "https://api.together.xyz/v1/chat/completions",
       {
-        model: "gpt-3.5-turbo",
-        messages: context,
+        model: "moonshotai/Kimi-K2-Instruct",
+        messages: context,                    
       },
       {
         headers: {
-          Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+          Authorization: `Bearer ${process.env.TOGETHERAI_API_KEY}`,
+          "Content-Type": "application/json",
         },
       }
     );
+    
 
     const botMessage = response.data.choices[0].message.content;
 
