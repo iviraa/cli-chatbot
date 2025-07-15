@@ -7,6 +7,7 @@ const { saveLogs, getLogs, clearLogs } = require("./messageLoader");
 
 const app = express();
 app.use(bodyParser.json());
+app.use(express.static("public"));
 
 
 app.post("/chat", async (req, res) => {
