@@ -3,7 +3,7 @@ const axios = require("axios");
 const bodyParser = require("body-parser");
 require("dotenv").config();
 
-const { saveLogs, getLogs } = require("./messageLoader");
+const { saveLogs, getLogs, clearLogs } = require("./messageLoader");
 
 const app = express();
 app.use(bodyParser.json());
@@ -14,6 +14,11 @@ app.post("/chat", async (req, res) => {
 
   if (!message) {
     return res.status(400).json({ error: "Message is required" });
+  }
+
+  if (message.trim().toLowerCase() === "/clear") {
+    clearLogs();
+    return res.json({ response: "Chat history cleared." });
   }
 
   try {

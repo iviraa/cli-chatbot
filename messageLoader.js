@@ -21,4 +21,8 @@ function saveLogs(user, bot) {
   fs.writeFileSync(logFilePath, JSON.stringify(logs, null, 2));
 }
 
-module.exports = { getLogs, saveLogs };
+function clearLogs() {
+  fs.writeFileSync(logFilePath, "[]");
+}
+
+module.exports = { getLogs, saveLogs, clearLogs };
