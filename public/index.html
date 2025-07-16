@@ -78,6 +78,44 @@
         padding: 20px;
       }
 
+      .start-screen {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: linear-gradient(135deg, #f8fbff 0%, #ffffff 100%);
+        text-align: center;
+        padding: 40px;
+      }
+      
+      .start-content h2 {
+        font-size: 32px;
+        color: #4169e1;
+        margin-bottom: 10px;
+      }
+      
+      .start-content p {
+        font-size: 16px;
+        color: #555;
+        margin-bottom: 30px;
+      }
+      
+      .start-chat-button {
+        background-color: #4169e1;
+        color: white;
+        padding: 12px 24px;
+        font-size: 16px;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: background 0.2s ease;
+      }
+      
+      .start-chat-button:hover {
+        background-color: #274db9;
+      }      
+
       .messages {
         flex: 1;
         overflow-y: auto;
@@ -382,7 +420,15 @@
       </div>
     </header>
 
-    <div class="chat-container">
+    <div class="start-screen" id="startScreen">
+      <div class="start-content">
+        <h2>Welcome to Knead Assistant</h2>
+        <p>Click below to begin your chat experience.</p>
+        <button class="start-chat-button" onclick="startChat()">Start Chat</button>
+      </div>
+    </div>    
+
+    <div class="chat-container" id="chatContainer" style="display: none;">
       <button class="clear-button" onclick="clearChat()">
         Clear Conversation
       </button>
@@ -573,6 +619,12 @@
             `;
       }
 
+      function startChat() {
+        document.getElementById("startScreen").style.display = "none";
+        document.getElementById("chatContainer").style.display = "flex";
+        messageInput.focus();
+      }
+      
       function endChat() {
         const endCommand = "/end";
         messageInput.value = endCommand;
