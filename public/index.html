@@ -282,7 +282,7 @@
 
       .end-button {
         background: #fef3f2;
-        border: 2px solid #fca5a5;
+        border: 2px solid #f5c6c6;
         color: #b91c1c;
         padding: 8px 16px;
         border-radius: 20px;
@@ -574,9 +574,17 @@
       }
 
       function endChat() {
-        messageInput.value = "/end";
+        const endCommand = "/end";
+        messageInput.value = endCommand;
         form.dispatchEvent(new Event("submit"));
+      
+        // Wait for message to render, then redirect
+        setTimeout(() => {
+          window.location.href = "end_chat.html";
+        }, 1000);
       }
+      
+      
 
       // Focus input on load
       messageInput.focus();
